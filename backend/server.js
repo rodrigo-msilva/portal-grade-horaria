@@ -7,6 +7,10 @@ require('./src/models/Cargo');
 require('./src/models/Hierarquia');
 require('./src/models/Pessoa');
 require('./src/models/Usuario');
+require('./src/models/Curso');
+require('./src/models/Disciplina');
+require('./src/models/DisciplinaCurso');
+
 
 sequelize.sync({ alter: true })
   .then(() => {

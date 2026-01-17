@@ -12,18 +12,18 @@ const sequelize = require('../src/config/database');
     await sequelize.authenticate();
     console.log('✔ Conectado ao banco');
 
-    const cargo = await Cargo.create({ descricao: 'Reitoria' });
-    const hierarquia = await Hierarquia.create({ descricao: 'administrador' });
+    const cargo = await Cargo.create({ descricao: 'Professor' });
+    const hierarquia = await Hierarquia.create({ descricao: 'Visualização' });
 
     const pessoa = await Pessoa.create({
-      nome: 'Admin',
-      email: 'admin@uf.edu.br',
+      nome: 'Rodrigo',
+      email: 'rodrigo@ufcspa.edu.br',
       cargo_id: cargo.id
     });
 
     await Usuario.create({
-      login: 'admin',
-      senha: await bcrypt.hash('admin123', 10),
+      login: 'rodrigo.matos',
+      senha: await bcrypt.hash('rodrigo123', 10),
       pessoa_id: pessoa.id,
       hierarquia_id: hierarquia.id
     });
