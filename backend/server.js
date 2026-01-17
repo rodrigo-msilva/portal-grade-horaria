@@ -1,0 +1,20 @@
+require('dotenv').config();
+const app = require('./src/app');
+const sequelize = require('./src/config/database');
+
+// IMPORTANTE: importar os models antes do sync
+require('./src/models/Cargo');
+require('./src/models/Hierarquia');
+require('./src/models/Pessoa');
+require('./src/models/Usuario');
+
+sequelize.sync({ alter: true })
+  .then(() => {
+    console.log('✔ Tabelas criadas / atualizadas com sucesso');
+    app.listen(3000, () => {
+      console.log('🚀 API rodando em http://localhost:3000');
+    });
+  })
+  .catch(err => {
+    console.error('❌ Erro ao criar tabelas:', err);
+  });
