@@ -13,7 +13,7 @@ const Usuario = sequelize.define('Tb_Usuario', {
   tableName: 'Tb_Usuario'
 });
 
-Usuario.belongsTo(Pessoa, { foreignKey: 'pessoa_id' });
-Usuario.belongsTo(Hierarquia, { foreignKey: 'hierarquia_id' });
+
+
 
 module.exports = Usuario;

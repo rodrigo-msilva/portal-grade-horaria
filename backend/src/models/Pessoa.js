@@ -1,7 +1,7 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/database');
 const Cargo = require('./Cargo');
-
+const Usuario = require('./Usuario');
 const Pessoa = sequelize.define('Tb_Pessoa', {
   nome: DataTypes.STRING,
   email: {
@@ -13,6 +13,7 @@ const Pessoa = sequelize.define('Tb_Pessoa', {
   tableName: 'Tb_Pessoa'
 });
 
-Pessoa.belongsTo(Cargo, { foreignKey: 'cargo_id' });
+
+
 
 module.exports = Pessoa;
