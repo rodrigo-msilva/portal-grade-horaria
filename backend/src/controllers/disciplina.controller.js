@@ -1,4 +1,6 @@
-const Disciplina = require('../models/Disciplina');
+const { Disciplina, Curso, Pessoa } = require('../models');
+
+// ==== CRUD EXISTENTE (SEM ALTERAÇÃO) ====
 
 exports.create = async (req, res) => {
   const disciplina = await Disciplina.create(req.body);
@@ -28,4 +30,47 @@ exports.remove = async (req, res) => {
 
   await disciplina.destroy();
   res.status(204).send();
+};
+
+// ==== NOVO: ASSOCIAÇÕES DA DISCIPLINA ====
+
+/**
+ * LISTAR CURSOS E PROFESSORES DA DISCIPLINA
+ */
+exports.findRelations = async (req, res) => {
+  const disciplina = await Disciplina.findByPk(req.params.id, {
+    include: [
+      { model: Curso, as: 'cursos' },
+      { model: Pessoa, as: 'professores' }
+    ]
+  });
+
+  if (!disciplina) {
+    return res.status(404).json({ error: 'Disciplina não encontrada' });
+  }
+
+  res.json(disciplina);
+};
+
+/**
+ * ATUALIZAR CURSOS E PROFESSORES DA DISCIPLINA
+ */
+exports.updateRelations = async (req, res) => {
+  const { cursos = [], professores = [] } = req.body;
+
+  const disciplina = await Disciplina.findByPk(req.params.id);
+
+  if (!disciplina) {
+    return res.status(404).json({ error: 'Disciplina não encontrada' });
+  }
+
+  if (Array.isArray(cursos)) {
+    await disciplina.setCursos(cursos);
+  }
+
+  if (Array.isArray(professores)) {
+    await disciplina.setProfessores(professores);
+  }
+
+  res.json({ message: 'Associações atualizadas com sucesso' });
 };

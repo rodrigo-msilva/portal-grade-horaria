@@ -6,7 +6,7 @@ const Pessoa = sequelize.define('Tb_Pessoa', {
   nome: DataTypes.STRING,
   email: {
     type: DataTypes.STRING,
-    unique: true
+     unique: 'uk_pessoa_email'
   },
   matricula: DataTypes.STRING
 }, {

@@ -12,6 +12,8 @@ const disciplinaRoutes = require('./routes/disciplina.routes');
 const cursoDisciplinaRoutes = require('./routes/curso-disciplina.routes');
 const pessoaRoutes = require('./routes/pessoa.routes');
 const usuarioRoutes = require('./routes/usuario.routes');
+const hierarquiaRoutes = require('./routes/hierarquia.routes');
+const cargoRoutes = require('./routes/cargo.routes');
 
 
 app.use('/auth', authRoutes);
@@ -20,5 +22,7 @@ app.use('/disciplinas', disciplinaRoutes);
 app.use('/curso-disciplinas', cursoDisciplinaRoutes);
 app.use('/pessoas', pessoaRoutes);
 app.use('/usuarios', usuarioRoutes);
+app.use('/hierarquias', hierarquiaRoutes);
+app.use('/cargos', cargoRoutes);
 
 module.exports = app;

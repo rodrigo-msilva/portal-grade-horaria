@@ -12,7 +12,7 @@ require('./src/models/Disciplina');
 require('./src/models/DisciplinaCurso');
 
 
-sequelize.sync({ alter: true })
+sequelize.sync()
   .then(() => {
     console.log('✔ Tabelas criadas / atualizadas com sucesso');
     app.listen(3000, () => {

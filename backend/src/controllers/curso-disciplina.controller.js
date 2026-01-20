@@ -1,5 +1,5 @@
-const Curso = require('../models/Curso');
-const Disciplina = require('../models/Disciplina');
+//const Curso = require('../models/Curso');
+const {Disciplina, Curso} = require('../models');
 
 exports.vincular = async (req, res) => {
   const { cursoId, disciplinaId } = req.body;

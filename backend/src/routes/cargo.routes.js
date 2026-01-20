@@ -1,14 +1,15 @@
 const router = require('express').Router();
-const controller = require('../controllers/curso.controller');
+const controller = require('../controllers/cargo.controller');
+//const auth = require('../middlewares/auth.middleware');
+//const role = require('../middlewares/role.middleware');
+//
+//router.use(auth);
+//router.use(role(['administrador'])); // 🔒 somente admin
 
 router.post('/', controller.create);
 router.get('/', controller.findAll);
 router.get('/:id', controller.findById);
 router.put('/:id', controller.update);
 router.delete('/:id', controller.remove);
-
-// associação
-router.get('/:id/disciplinas', controller.listDisciplinas);
-router.post('/:id/disciplinas', controller.updateDisciplinas);
 
 module.exports = router;

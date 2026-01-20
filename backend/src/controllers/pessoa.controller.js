@@ -8,8 +8,8 @@ exports.create = async (req, res) => {
 exports.findAll = async (req, res) => {
   const pessoas = await Pessoa.findAll({
     include: [
-      { model: Cargo },
-      { model: Usuario } // para saber se tem usuário
+      { model: Cargo, as: 'cargo' },
+      { model: Usuario, as: 'usuario' }
     ]
   });
 
@@ -18,7 +18,10 @@ exports.findAll = async (req, res) => {
 
 exports.findById = async (req, res) => {
   const pessoa = await Pessoa.findByPk(req.params.id, {
-    include: [Cargo, Usuario]
+    include: [
+      { model: Cargo, as: 'cargo' },
+      { model: Usuario, as: 'usuario' }
+    ]
   });
 
   if (!pessoa) {
@@ -41,14 +44,14 @@ exports.update = async (req, res) => {
 
 exports.remove = async (req, res) => {
   const pessoa = await Pessoa.findByPk(req.params.id, {
-    include: Usuario
+    include: [{ model: Usuario, as: 'usuario' }]
   });
 
   if (!pessoa) {
     return res.status(404).json({ error: 'Pessoa não encontrada' });
   }
 
-  if (pessoa.Tb_Usuario) {
+  if (pessoa.usuario) {
     return res
       .status(400)
       .json({ error: 'Pessoa possui usuário e não pode ser removida' });

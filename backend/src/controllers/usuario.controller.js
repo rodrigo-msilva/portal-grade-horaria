@@ -30,7 +30,7 @@ exports.create = async (req, res) => {
 
 exports.findAll = async (req, res) => {
   const usuarios = await Usuario.findAll({
-    include: [Pessoa, Hierarquia]
+    include: [{ model: Pessoa, as: 'pessoa' }, { model: Hierarquia, as: 'hierarquia' }]
   });
 
   res.json(usuarios);
@@ -38,7 +38,7 @@ exports.findAll = async (req, res) => {
 
 exports.findById = async (req, res) => {
   const usuario = await Usuario.findByPk(req.params.id, {
-    include: [Pessoa, Hierarquia]
+    include: [{ model: Pessoa, as: 'pessoa' }, { model: Hierarquia, as: 'hierarquia' }]
   });
 
   if (!usuario) {
