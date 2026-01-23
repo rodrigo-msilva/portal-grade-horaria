@@ -27,6 +27,14 @@ export default function Usuarios() {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form] = Form.useForm();
+  const [search, setSearch] = useState('');
+
+  const filterByText = (value, fields) =>
+    fields.some(field =>
+      field?.toLowerCase().includes(value.toLowerCase())
+    );
+
+
 
   const load = async () => {
     setUsuarios((await api.get('/usuarios')).data);
@@ -79,6 +87,15 @@ export default function Usuarios() {
     form.resetFields();
   };
 
+  const filteredUsuarios = usuarios.filter(u =>
+    filterByText(search, [
+      u.login,
+      u.pessoa?.nome,
+      u.hierarquia?.descricao
+    ])
+  );
+
+
   useEffect(() => { load(); }, []);
 
   return (
@@ -87,9 +104,15 @@ export default function Usuarios() {
         title="Usuários"
         extra={<Button type="primary" onClick={() => setOpen(true)}>Novo Usuário</Button>}
       >
+        <Input.Search
+          placeholder="Buscar usuários"
+          allowClear
+          style={{ width: 300, marginBottom: 16 }}
+          onChange={e => setSearch(e.target.value)}
+        />
         <Table
           rowKey="id"
-          dataSource={usuarios}
+          dataSource={filteredUsuarios}
           columns={[
             { title: 'Login', dataIndex: 'login' },
             { title: 'Pessoa', dataIndex: ['pessoa', 'nome'] },

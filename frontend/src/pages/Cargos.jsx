@@ -23,6 +23,13 @@ export default function Cargos() {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form] = Form.useForm();
+  const [search, setSearch] = useState('');
+
+  const filterByText = (value, fields) =>
+    fields.some(field =>
+      field?.toLowerCase().includes(value.toLowerCase())
+    );
+
 
   const load = async () => {
     setCargos((await api.get('/cargos')).data);
@@ -71,6 +78,11 @@ export default function Cargos() {
 
   useEffect(() => { load(); }, []);
 
+  const filteredCargos = cargos.filter(c =>
+    filterByText(search, [c.descricao])
+  );
+
+
   return (
     <AppLayout>
       <Card
@@ -79,11 +91,18 @@ export default function Cargos() {
           <Button type="primary" onClick={() => setOpen(true)}>
             Novo Cargo
           </Button>
+          
         }
       >
+      <Input.Search
+          placeholder="Buscar cargos"
+          allowClear
+          style={{ width: 300, marginBottom: 16 }}
+          onChange={e => setSearch(e.target.value)}
+        />
         <Table
           rowKey="id"
-          dataSource={cargos}
+          dataSource={filteredCargos}
           columns={[
             { title: 'Descrição', dataIndex: 'descricao' },
             {

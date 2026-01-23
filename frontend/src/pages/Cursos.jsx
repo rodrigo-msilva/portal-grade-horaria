@@ -7,7 +7,8 @@ import {
   Form,
   Input,
   Popconfirm,
-  message
+  message,
+  Badge
 } from 'antd';
 
 import {
@@ -25,6 +26,17 @@ export default function Cursos() {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form] = Form.useForm();
+  const [search, setSearch] = useState('');
+
+  const filterByText = (value, fields) =>
+    fields.some(field =>
+      field?.toLowerCase().includes(value.toLowerCase())
+    );
+
+  const filteredCursos = cursos.filter(c =>
+      filterByText(search, [c.nome])
+    );
+
   const navigate = useNavigate();
 
   const load = async () => {
@@ -89,13 +101,33 @@ export default function Cursos() {
           </Button>
         }
       >
+
+        <Input.Search
+        placeholder="Buscar curso"
+        allowClear
+        style={{ width: 300, marginBottom: 16 }}
+        onChange={e => setSearch(e.target.value)}
+      />
         <Table
           rowKey="id"
-          dataSource={cursos}
+          dataSource={filteredCursos}
           columns={[
             {
               title: 'Nome',
               dataIndex: 'nome'
+            },
+            {
+              title: 'Disciplinas',
+              dataIndex: 'disciplinas',
+              align: 'center',
+              width: 120,
+              render: (disciplinas = []) => (
+                <Badge
+                  count={disciplinas.length}
+                  showZero
+                  style={{ backgroundColor: '#0B3A4A' }}
+                />
+              )
             },
             {
               title: 'Ações',
@@ -103,6 +135,7 @@ export default function Cursos() {
               width: 220,
               render: (_, r) => (
                 <>
+                  
                   <Button
                     type="link"
                     icon={<BookOutlined />}
@@ -112,7 +145,7 @@ export default function Cursos() {
                   >
                     Disciplinas
                   </Button>
-
+                  
                   <Button
                     type="link"
                     icon={<EditOutlined />}
@@ -131,7 +164,9 @@ export default function Cursos() {
                   </Popconfirm>
                 </>
               )
-            }
+            },
+
+
           ]}
         />
       </Card>

@@ -6,7 +6,7 @@ import Cargos from './pages/Cargos';
 import Cursos from './pages/Cursos';
 import Disciplinas from './pages/Disciplinas';
 import CursoDisciplinas from './pages/CursoDisciplinas';
-
+import GradeHoraria from './pages/GradeHoraria';
 export default function App() {
   return (
     <BrowserRouter>
@@ -21,6 +21,7 @@ export default function App() {
           path="/cursos/:id/disciplinas"
           element={<CursoDisciplinas />}
         />
+        <Route path="/grade" element={<GradeHoraria />} />
 
       </Routes>
     </BrowserRouter>

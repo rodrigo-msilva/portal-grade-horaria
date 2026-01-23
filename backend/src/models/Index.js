@@ -6,6 +6,10 @@ const Pessoa = require('./Pessoa');
 const Usuario = require('./Usuario');
 const Cargo = require('./Cargo');
 const Hierarquia = require('./Hierarquia');
+const Horario = require('./Horario');
+const DiaSemana = require('./DiaSemana');
+
+
 
 // Curso ↔ Disciplina
 Curso.belongsToMany(Disciplina, {
@@ -74,6 +78,8 @@ module.exports = {
     Cargo,
     Hierarquia,
     DisciplinaCurso,
-    DisciplinaPessoa
+    DisciplinaPessoa,
+    Horario,
+    DiaSemana
 };
 

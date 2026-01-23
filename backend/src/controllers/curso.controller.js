@@ -8,7 +8,17 @@ exports.create = async (req, res) => {
 };
 
 exports.findAll = async (req, res) => {
-  const cursos = await Curso.findAll();
+  const cursos = await Curso.findAll({
+    include: [
+      {
+        model: Disciplina,
+        as: 'disciplinas',
+        attributes: ['id'],          // só o necessário
+        through: { attributes: [] }  // limpa a resposta
+      }
+    ]
+  });
+
   res.json(cursos);
 };
 

@@ -7,7 +7,8 @@ import {
 
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useState } from 'react';
-import logo from '../assets/ufcspa-logo.png';
+//import logo from '../assets/ufcspa-logo.png';
+import logoBranco from '../assets/ufcspa-logo-branco.png';
 
 const { Header, Sider, Content, Footer } = Layout;
 
@@ -36,7 +37,7 @@ export default function AppLayout({ children }) {
           alignItems: 'center'
         }}
       >
-        <img src={logo} alt="UFCSPA" style={{ height: 32 }} />
+        <img src={logoBranco} alt="UFCSPA" style={{ height: 32 }} />
       </Header>
 
       <Layout>
@@ -83,7 +84,19 @@ export default function AppLayout({ children }) {
         </Content>
       </Layout>
 
-      <Footer style={{ backgroundColor: '#0B3A4A', height: 48 }} />
+      <Footer
+  style={{
+    backgroundColor: '#0B3A4A',
+    color: '#FFFFFF',
+    textAlign: 'center',
+    fontSize: 12,
+    padding: '12px 0'
+  }}
+    >
+      © 2026 – Universidade Federal de Ciências da Saúde de Porto Alegre (UFCSPA).
+      Todos os direitos reservados.
+    </Footer>
+
     </Layout>
   );
 }

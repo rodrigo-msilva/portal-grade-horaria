@@ -40,8 +40,18 @@ exports.remove = async (req, res) => {
 exports.findRelations = async (req, res) => {
   const disciplina = await Disciplina.findByPk(req.params.id, {
     include: [
-      { model: Curso, as: 'cursos' },
-      { model: Pessoa, as: 'professores' }
+      {
+        model: Curso,
+        as: 'cursos',
+        attributes: ['id', 'nome'],
+        through: { attributes: [] }
+      },
+      {
+        model: Pessoa,
+        as: 'professores',
+        attributes: ['id', 'nome'],
+        through: { attributes: [] }
+      }
     ]
   });
 

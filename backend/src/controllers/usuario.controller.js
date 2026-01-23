@@ -5,7 +5,7 @@ exports.create = async (req, res) => {
   const { pessoa_id, login, senha, hierarquia_id } = req.body;
 
   const pessoa = await Pessoa.findByPk(pessoa_id, {
-    include: Usuario
+    include: [{ model: Usuario, as: 'usuario' }]
   });
 
   if (!pessoa) {

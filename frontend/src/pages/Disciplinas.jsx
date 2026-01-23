@@ -23,11 +23,16 @@ export default function Disciplinas() {
   const [disciplinas, setDisciplinas] = useState([]);
   const [cursos, setCursos] = useState([]);
   const [professores, setProfessores] = useState([]);
-
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(null);
-
   const [form] = Form.useForm();
+  const [search, setSearch] = useState('');
+
+  const filterByText = (value, fields) =>
+    fields.some(field =>
+      field?.toLowerCase().includes(value.toLowerCase())
+    );
+
 
   const load = async () => {
     try {
@@ -91,21 +96,21 @@ export default function Disciplinas() {
     }
   };
 
-  const edit = async (disciplina) => {
-    setEditing(disciplina);
+const edit = async (disciplina) => {
+  setEditing(disciplina);
 
-    const res = await api.get(
-      `/disciplinas/${disciplina.id}/relations`
-    );
+  const res = await api.get(
+    `/disciplinas/${disciplina.id}/relations`
+  );
 
-    form.setFieldsValue({
-      nome: disciplina.nome,
-      cursos: res.data.cursos.map(c => c.id),
-      professores: res.data.professores.map(p => p.id)
-    });
+  form.setFieldsValue({
+    nome: disciplina.nome,
+    cursos: res.data.cursos.map(c => c.id),
+    professores: res.data.professores.map(p => p.id)
+  });
 
-    setOpen(true);
-  };
+  setOpen(true);
+};
 
   const closeModal = () => {
     setOpen(false);
@@ -117,6 +122,9 @@ export default function Disciplinas() {
     load();
     loadAux();
   }, []);
+  const filteredDisciplinas = disciplinas.filter(d =>
+    filterByText(search, [d.nome])
+  );
 
   return (
     <AppLayout>
@@ -128,9 +136,16 @@ export default function Disciplinas() {
           </Button>
         }
       >
+      <Input.Search
+        placeholder="Buscar disciplina"
+        allowClear
+        style={{ width: 300, marginBottom: 16 }}
+        onChange={e => setSearch(e.target.value)}
+      />
+
         <Table
           rowKey="id"
-          dataSource={disciplinas}
+          dataSource={filteredDisciplinas}
           columns={[
             {
               title: 'Nome',
@@ -181,33 +196,26 @@ export default function Disciplinas() {
             <Input />
           </Form.Item>
 
-          <Form.Item name="cursos" label="Cursos">
-            <Select
-              mode="multiple"
-              allowClear
-              placeholder="Selecione os cursos"
-            >
-              {cursos.map(c => (
-                <Select.Option key={c.id} value={c.id}>
-                  {c.nome}
-                </Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
+<Form.Item name="cursos" label="Cursos">
+  <Select mode="multiple" allowClear>
+    {cursos.map(c => (
+      <Select.Option key={c.id} value={c.id}>
+        {c.nome}
+      </Select.Option>
+    ))}
+  </Select>
+</Form.Item>
 
-          <Form.Item name="professores" label="Professores">
-            <Select
-              mode="multiple"
-              allowClear
-              placeholder="Selecione os professores"
-            >
-              {professores.map(p => (
-                <Select.Option key={p.id} value={p.id}>
-                  {p.nome}
-                </Select.Option>
-              ))}
-            </Select>
-          </Form.Item>
+<Form.Item name="professores" label="Professores">
+  <Select mode="multiple" allowClear>
+    {professores.map(p => (
+      <Select.Option key={p.id} value={p.id}>
+        {p.nome}
+      </Select.Option>
+    ))}
+  </Select>
+</Form.Item>
+
         </Form>
       </Modal>
     </AppLayout>

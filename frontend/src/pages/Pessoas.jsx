@@ -20,6 +20,14 @@ export default function Pessoas() {
   const [open, setOpen] = useState(false);
   const [editing, setEditing] = useState(null);
   const [form] = Form.useForm();
+  const [search, setSearch] = useState('');
+
+  const filterByText = (value, fields) =>
+    fields.some(field =>
+      field?.toLowerCase().includes(value.toLowerCase())
+    );
+
+
 
   const load = async () => {
     setPessoas((await api.get('/pessoas')).data);
@@ -67,6 +75,15 @@ export default function Pessoas() {
     setOpen(true);
   };
 
+  const filteredPessoas = pessoas.filter(p =>
+    filterByText(search, [
+      p.nome,
+      p.email,
+      p.cargo?.descricao
+    ])
+  );
+
+
   useEffect(() => { load(); }, []);
 
   return (
@@ -79,9 +96,16 @@ export default function Pessoas() {
           </Button>
         }
       >
+      <Input.Search
+        placeholder="Buscar pessoa"
+        allowClear
+        style={{ width: 300, marginBottom: 16 }}
+        onChange={e => setSearch(e.target.value)}
+      />
+
         <Table
           rowKey="id"
-          dataSource={pessoas}
+          dataSource={filteredPessoas}
           columns={[
             { title: 'Nome', dataIndex: 'nome' },
             { title: 'Email', dataIndex: 'email' },

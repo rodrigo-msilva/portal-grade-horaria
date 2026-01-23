@@ -14,7 +14,8 @@ const pessoaRoutes = require('./routes/pessoa.routes');
 const usuarioRoutes = require('./routes/usuario.routes');
 const hierarquiaRoutes = require('./routes/hierarquia.routes');
 const cargoRoutes = require('./routes/cargo.routes');
-
+const horarioRoutes = require('./routes/horario.routes');
+const diaSemanaRoutes = require('./routes/dia-semana.routes');
 
 app.use('/auth', authRoutes);
 app.use('/cursos', cursoRoutes);
@@ -24,5 +25,8 @@ app.use('/pessoas', pessoaRoutes);
 app.use('/usuarios', usuarioRoutes);
 app.use('/hierarquias', hierarquiaRoutes);
 app.use('/cargos', cargoRoutes);
+app.use('/horarios', horarioRoutes);
+app.use('/dias-semana', diaSemanaRoutes);
+
 
 module.exports = app;
