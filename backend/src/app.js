@@ -4,7 +4,12 @@ const cors = require('cors');
 const app = express();
 
 app.use(cors());
+
+
+
 app.use(express.json());
+
+
 
 const authRoutes = require('./routes/auth.routes');
 const cursoRoutes = require('./routes/curso.routes');
@@ -16,6 +21,10 @@ const hierarquiaRoutes = require('./routes/hierarquia.routes');
 const cargoRoutes = require('./routes/cargo.routes');
 const horarioRoutes = require('./routes/horario.routes');
 const diaSemanaRoutes = require('./routes/dia-semana.routes');
+
+
+
+
 
 app.use('/auth', authRoutes);
 app.use('/cursos', cursoRoutes);

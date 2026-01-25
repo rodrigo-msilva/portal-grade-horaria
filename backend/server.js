@@ -15,7 +15,7 @@ require('./src/models/DisciplinaCurso');
 sequelize.sync()
   .then(() => {
     console.log('✔ Tabelas criadas / atualizadas com sucesso');
-    app.listen(3000, () => {
+    app.listen(3001, () => {
       console.log('🚀 API rodando em http://localhost:3000');
     });
   })
