@@ -26,3 +26,5 @@ exports.listarPorCurso = async (req, res) => {
 
   res.json(curso);
 };
+
+
