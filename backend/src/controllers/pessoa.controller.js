@@ -42,22 +42,6 @@ exports.update = async (req, res) => {
   res.json(pessoa);
 };
 
-exports.findCoordenadores = async (req, res) => {
-  const pessoas = await Pessoa.findAll({
-    include: {
-      model: Cargo,
-      as: 'cargo',
-      where: {
-        descricao: 'Coordenador'
-      }
-    },
-    order: [['nome', 'ASC']]
-  });
-
-  res.json(pessoas);
-};
-
-
 exports.remove = async (req, res) => {
   const pessoa = await Pessoa.findByPk(req.params.id, {
     include: [{ model: Usuario, as: 'usuario' }]

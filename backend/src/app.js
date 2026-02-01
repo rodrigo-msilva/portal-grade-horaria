@@ -21,11 +21,10 @@ const hierarquiaRoutes = require('./routes/hierarquia.routes');
 const cargoRoutes = require('./routes/cargo.routes');
 const horarioRoutes = require('./routes/horario.routes');
 const diaSemanaRoutes = require('./routes/dia-semana.routes');
-const gradeHorariaRoutes = require('./routes/grade-horaria.routes')
-const anoRoutes = require('./routes/ano.routes')
-const curriculoRoutes = require('./routes/curriculo.routes')
-const semestreRoutes =  require('./routes/semestre.routes')
-const relatorioRoutes =  require('./routes/relatorio.routes')
+
+
+
+
 
 app.use('/auth', authRoutes);
 app.use('/cursos', cursoRoutes);
@@ -37,11 +36,6 @@ app.use('/hierarquias', hierarquiaRoutes);
 app.use('/cargos', cargoRoutes);
 app.use('/horarios', horarioRoutes);
 app.use('/dias-semana', diaSemanaRoutes);
-app.use('/grade-horaria', gradeHorariaRoutes);
-app.use('/anos', anoRoutes);
-app.use('/curriculos', curriculoRoutes);
-app.use('/semestres',semestreRoutes);
-app.use('/relatorios', relatorioRoutes);
 
 
 module.exports = app;

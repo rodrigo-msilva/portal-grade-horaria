@@ -10,9 +10,5 @@ router.delete('/:id', controller.remove);
 // associação
 router.get('/:id/disciplinas', controller.listDisciplinas);
 router.post('/:id/disciplinas', controller.updateDisciplinas);
-router.get(
-  '/:id/disciplinas-professores',
-  controller.findDisciplinasComProfessores
-);
 
 module.exports = router;

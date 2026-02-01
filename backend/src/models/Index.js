@@ -8,10 +8,8 @@ const Cargo = require('./Cargo');
 const Hierarquia = require('./Hierarquia');
 const Horario = require('./Horario');
 const DiaSemana = require('./DiaSemana');
-const Ano = require('./Ano');
-const Semestre = require('./Semestre');
-const Curriculo = require('./Curriculo');
-const GradeHoraria = require('./GradeHoraria')
+
+
 
 // Curso ↔ Disciplina
 Curso.belongsToMany(Disciplina, {
@@ -72,20 +70,6 @@ Hierarquia.hasMany(Usuario, {
   as: 'usuarios'
 });
 
-GradeHoraria.belongsTo(Curso, { foreignKey: 'curso_id' });
-GradeHoraria.belongsTo(Pessoa, { foreignKey: 'coordenador_id', as: 'coordenador' });
-GradeHoraria.belongsTo(Disciplina, { foreignKey: 'disciplina_id' });
-GradeHoraria.belongsTo(Horario, { foreignKey: 'horario_id' });
-GradeHoraria.belongsTo(DiaSemana, { foreignKey: 'dia_semana_id' });
-GradeHoraria.belongsTo(Ano, { foreignKey: 'ano_id' });
-GradeHoraria.belongsTo(Semestre, { foreignKey: 'semestre_id' });
-GradeHoraria.belongsTo(Curriculo, { foreignKey: 'curriculo_id' });
-GradeHoraria.belongsTo(Pessoa, {
-  foreignKey: 'professor_id',
-  as: 'professor'
-});
-
-
 module.exports = {
     Curso,
     Disciplina,
@@ -96,10 +80,6 @@ module.exports = {
     DisciplinaCurso,
     DisciplinaPessoa,
     Horario,
-    DiaSemana,
-    Ano,
-    Semestre,
-    Curriculo,
-    GradeHoraria
+    DiaSemana
 };
 

@@ -1,4 +1,4 @@
-const { Curso, Disciplina, Pessoa } = require('../models');
+const { Curso, Disciplina } = require('../models');
 
 // ==== CRUD EXISTENTE (SEM ALTERAÇÃO) ====
 
@@ -81,41 +81,4 @@ exports.updateDisciplinas = async (req, res) => {
   await curso.setDisciplinas(disciplinas);
 
   res.json({ message: 'Disciplinas associadas com sucesso' });
-};
-
-exports.findDisciplinasComProfessores = async (req, res) => {
-  const { id } = req.params;
-
-  const curso = await Curso.findByPk(id, {
-    include: {
-      model: Disciplina,
-      as: 'disciplinas',
-      include: {
-        model: Pessoa,
-        as: 'professores',
-        attributes: ['id', 'nome'],
-        through: { attributes: [] }
-      }
-    }
-  });
-
-  if (!curso) {
-    return res.status(404).json({ error: 'Curso não encontrado' });
-  }
-
-  // 🔁 monta as combinações disciplina + professor
-  const result = [];
-
-  curso.disciplinas.forEach(disciplina => {
-    disciplina.professores.forEach(professor => {
-      result.push({
-        disciplina_id: disciplina.id,
-        disciplina_nome: disciplina.nome,
-        professor_id: professor.id,
-        professor_nome: professor.nome
-      });
-    });
-  });
-
-  res.json(result);
 };

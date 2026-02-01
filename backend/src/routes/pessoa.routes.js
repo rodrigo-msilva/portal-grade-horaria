@@ -3,7 +3,7 @@ const controller = require('../controllers/pessoa.controller');
 //const auth = require('../middlewares/auth.middleware');
 
 //router.use(auth);
-router.get('/coordenadores', controller.findCoordenadores);
+
 router.post('/', controller.create);
 router.get('/', controller.findAll);
 router.get('/:id', controller.findById);
